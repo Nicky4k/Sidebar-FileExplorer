@@ -7,10 +7,15 @@ import "./styles.css";
 export default function App() {
   const [docs, setDocs] = useState(explorer);
 
-  const { insertNode } = useTraverseTree();
+  const { insertNode, updateNode } = useTraverseTree();
 
   const insertNodeHandler = (folderId, itemName, isFolder) => {
     const updatedTree = insertNode(explorer, folderId, itemName, isFolder);
+    setDocs(updatedTree);
+  };
+
+  const updateNodeHandler = (folderId, itemName) => {
+    const updatedTree = updateNode(explorer, folderId, itemName);
     setDocs(updatedTree);
   };
 
@@ -24,11 +29,15 @@ export default function App() {
         height: "fit-content",
         border: "1px solid darkgrey",
         borderRadius: "0.25rem",
-        color: "darkgray"
+        color: "darkgray",
       }}
     >
       <h4 style={{ margin: "0.5rem 0 1rem 0" }}>Sidebar File Explorer</h4>
-      <Explorer insertNodeHandler={insertNodeHandler} docs={docs} />
+      <Explorer
+        updateNodeHandler={updateNodeHandler}
+        insertNodeHandler={insertNodeHandler}
+        docs={docs}
+      />
     </div>
   );
 }

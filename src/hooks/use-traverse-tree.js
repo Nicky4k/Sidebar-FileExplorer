@@ -5,7 +5,7 @@ const useTraverseTree = () => {
         id: new Date().getTime(),
         name: itemName,
         isFolder,
-        items: []
+        items: [],
       });
       return tree;
     }
@@ -16,7 +16,21 @@ const useTraverseTree = () => {
 
     return { ...tree, items: latestNode };
   }
-  return { insertNode };
+
+  function updateNode(tree, folderId, itemName) {
+    if (tree.id === folderId) {
+      tree.name = itemName;
+      return tree;
+    }
+    let latestNode = [];
+    latestNode = tree.items.map((ob) => {
+      return updateNode(ob, folderId, itemName);
+    });
+
+    return { ...tree, items: latestNode };
+  }
+
+  return { insertNode, updateNode };
 };
 
 export default useTraverseTree;
