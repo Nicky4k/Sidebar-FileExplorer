@@ -30,12 +30,12 @@ function Explorer({ insertNodeHandler, docs, updateNodeHandler }) {
     }
   };
 
-  const renameFileFolder = (e)=> {
+  const renameFileFolder = (e) => {
     if (e.target.value.trim() && e.keyCode === 13) {
-      setShowRename(false)
-      updateNodeHandler(docs.id, e.target.value.trim())
+      setShowRename(false);
+      updateNodeHandler(docs.id, e.target.value.trim());
     }
-  }
+  };
 
   if (docs.isFolder) {
     return (
@@ -43,7 +43,7 @@ function Explorer({ insertNodeHandler, docs, updateNodeHandler }) {
         <section
           className="folder"
           onClick={toggleFolderIconHandler}
-          onMouseEnter={(e) => {
+          onMouseEnter={() => {
             setShowEditTools(!showEditTools);
           }}
           onMouseLeave={(e) => {
@@ -61,7 +61,7 @@ function Explorer({ insertNodeHandler, docs, updateNodeHandler }) {
                   type="text"
                   defaultValue={docs.name}
                   onBlur={() => {
-                    setShowRename(false)
+                    setShowRename(false);
                   }}
                 ></input>
               )}
@@ -69,8 +69,9 @@ function Explorer({ insertNodeHandler, docs, updateNodeHandler }) {
             </article>
             {showEditTools && (
               <figure style={{ marginRight: 0 }} className="not__selectable">
-                <button  className="btn_styles" 
-                onClick={(e) => setShowRename(true)}
+                <button
+                  className="btn_styles"
+                  onClick={(e) => setShowRename(true)}
                 >
                   ✏️
                 </button>
@@ -131,24 +132,27 @@ function Explorer({ insertNodeHandler, docs, updateNodeHandler }) {
           <article style={{ fontSize: "1rem" }} className="not__selectable">
             <div>📄 </div>
             {showRename && (
-                <input
-                  onKeyDown={(e) => renameFileFolder(e)}
-                  autoFocus
-                  className="input__newFileFolder"
-                  type="text"
-                  defaultValue={docs.name}
-                  onBlur={() => {
-                    setShowRename(false)
-                  }}
-                ></input>
-              )}
-              {!showRename && docs.name}
+              <input
+                onKeyDown={(e) => renameFileFolder(e)}
+                autoFocus
+                className="input__newFileFolder"
+                type="text"
+                defaultValue={docs.name}
+                onBlur={() => {
+                  setShowRename(false);
+                }}
+              ></input>
+            )}
+            {!showRename && docs.name}
           </article>
           {showEditTools && (
             <figure style={{ marginRight: 0 }} className="not__selectable">
-              <button                 
-              onClick={(e) => setShowRename(true)}
-              className="btn_styles">✏️</button>
+              <button
+                onClick={(e) => setShowRename(true)}
+                className="btn_styles"
+              >
+                ✏️
+              </button>
               <button className="btn_styles">❌</button>
             </figure>
           )}
