@@ -4,6 +4,7 @@ function Explorer({
   insertNodeHandler,
   docs,
   updateNodeHandler,
+  pushDeletedNodesHandler,
   deleteNodeHandler,
 }) {
   const [folderOpen, setFolderOpen] = useState(false);
@@ -43,6 +44,7 @@ function Explorer({
   };
 
   const deleteFileFolderHandler = (e) => {
+    pushDeletedNodesHandler(docs.id)
     deleteNodeHandler(docs.id);
   };
 
@@ -125,6 +127,7 @@ function Explorer({
             <Explorer
               updateNodeHandler={updateNodeHandler}
               insertNodeHandler={insertNodeHandler}
+              pushDeletedNodesHandler={pushDeletedNodesHandler}
               deleteNodeHandler={deleteNodeHandler}
               docs={doc}
             />
@@ -132,7 +135,7 @@ function Explorer({
         </div>
       </div>
     );
-  } else {
+  } else if (!docs.isFolder) {
     return (
       <div style={{ marginLeft: "2rem" }}>
         <section
@@ -168,7 +171,12 @@ function Explorer({
               >
                 ✏️
               </button>
-              <button className="btn_styles">❌</button>
+              <button
+                onClick={(e) => deleteFileFolderHandler(e)}
+                className="btn_styles"
+              >
+                ❌
+              </button>
             </figure>
           )}
         </section>
