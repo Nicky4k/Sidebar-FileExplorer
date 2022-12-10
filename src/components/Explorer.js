@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-function Explorer({ insertNodeHandler, docs, updateNodeHandler }) {
+function Explorer({
+  insertNodeHandler,
+  docs,
+  updateNodeHandler,
+  deleteNodeHandler,
+}) {
   const [folderOpen, setFolderOpen] = useState(false);
   const [expand, setExpand] = useState(false);
   const [showEditTools, setShowEditTools] = useState(false);
@@ -35,6 +40,10 @@ function Explorer({ insertNodeHandler, docs, updateNodeHandler }) {
       setShowRename(false);
       updateNodeHandler(docs.id, e.target.value.trim());
     }
+  };
+
+  const deleteFileFolderHandler = (e) => {
+    deleteNodeHandler(docs.id);
   };
 
   if (docs.isFolder) {
@@ -87,7 +96,12 @@ function Explorer({ insertNodeHandler, docs, updateNodeHandler }) {
                 >
                   🗂
                 </button>
-                <button className="btn_styles">❌</button>
+                <button
+                  onClick={(e) => deleteFileFolderHandler(e)}
+                  className="btn_styles"
+                >
+                  ❌
+                </button>
               </figure>
             )}
           </>
@@ -111,6 +125,7 @@ function Explorer({ insertNodeHandler, docs, updateNodeHandler }) {
             <Explorer
               updateNodeHandler={updateNodeHandler}
               insertNodeHandler={insertNodeHandler}
+              deleteNodeHandler={deleteNodeHandler}
               docs={doc}
             />
           ))}
