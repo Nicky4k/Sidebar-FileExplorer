@@ -7,7 +7,7 @@ import "./styles.css";
 export default function App() {
   const [docs, setDocs] = useState(explorer);
 
-  const { insertNode, updateNode, deleteNode } = useTraverseTree();
+  const { insertNode, updateNode,pushDeletedNodes, deleteNode } = useTraverseTree();
 
   const insertNodeHandler = (folderId, itemName, isFolder) => {
     const updatedTree = insertNode(explorer, folderId, itemName, isFolder);
@@ -18,6 +18,10 @@ export default function App() {
     const updatedTree = updateNode(explorer, folderId, itemName);
     setDocs(updatedTree);
   };
+
+const pushDeletedNodesHandler = (nodeId) => {
+  pushDeletedNodes(nodeId)
+}
 
   const deleteNodeHandler = (folderId) => {
     const updatedTree = deleteNode(explorer, folderId);
@@ -42,6 +46,7 @@ export default function App() {
         updateNodeHandler={updateNodeHandler}
         insertNodeHandler={insertNodeHandler}
         deleteNodeHandler={deleteNodeHandler}
+        pushDeletedNodesHandler={pushDeletedNodesHandler}
         docs={docs}
       />
     </div>

@@ -1,3 +1,5 @@
+let deletedNodes = [];
+
 const useTraverseTree = () => {
   function insertNode(tree, folderId, itemName, isFolder) {
     if (tree.id === folderId && tree.isFolder) {
@@ -31,19 +33,25 @@ const useTraverseTree = () => {
   }
 
   function deleteNode(tree, folderId) {
-    if (tree.id === folderId) {
-      return {};
+    if(tree.id === folderId){
+      delete tree.name;
+      delete tree.items;
+      delete tree.isFolder;
+      return tree;
     }
 
+
     let latestNode = [];
-    latestNode = tree.items.map((ob) => {
-      return deleteNode(ob, folderId);
-    });
+    let filteredNodes = tree.items.filter((ob) => !deletedNodes.includes(ob.id));
+    latestNode = filteredNodes.map(ob => deleteNode(ob, folderId));
 
     return { ...tree, items: latestNode };
   }
+  function pushDeletedNodes (nodeId){
+    deletedNodes.push(nodeId);
+  }
 
-  return { insertNode, updateNode, deleteNode };
+  return { insertNode, updateNode, pushDeletedNodes,  deleteNode };
 };
 
 export default useTraverseTree;
