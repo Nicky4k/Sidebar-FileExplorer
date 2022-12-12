@@ -1,5 +1,3 @@
-let deletedNodes = [];
-
 const useTraverseTree = () => {
   function insertNode(tree, folderId, itemName, isFolder) {
     if (tree.id === folderId && tree.isFolder) {
@@ -47,11 +45,8 @@ const useTraverseTree = () => {
 
     return { ...tree, items: latestNode };
   }
-  function pushDeletedNodes (nodeId){
-    deletedNodes.push(nodeId);
-  }
 
-  return { insertNode, updateNode, pushDeletedNodes,  deleteNode };
+  return { insertNode, updateNode,  deleteNode };
 };
 
 export default useTraverseTree;
