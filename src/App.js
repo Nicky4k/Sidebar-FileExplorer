@@ -10,12 +10,12 @@ export default function App() {
   const { insertNode, updateNode,pushDeletedNodes, deleteNode } = useTraverseTree();
 
   const insertNodeHandler = (folderId, itemName, isFolder) => {
-    const updatedTree = insertNode(explorer, folderId, itemName, isFolder);
+    const updatedTree = insertNode(docs, folderId, itemName, isFolder);
     setDocs(updatedTree);
   };
 
   const updateNodeHandler = (folderId, itemName) => {
-    const updatedTree = updateNode(explorer, folderId, itemName);
+    const updatedTree = updateNode(docs, folderId, itemName);
     setDocs(updatedTree);
   };
 
@@ -24,7 +24,7 @@ const pushDeletedNodesHandler = (nodeId) => {
 }
 
   const deleteNodeHandler = (folderId) => {
-    const updatedTree = deleteNode(explorer, folderId);
+    const updatedTree = deleteNode(docs, folderId);
     setDocs(updatedTree);
   };
 
