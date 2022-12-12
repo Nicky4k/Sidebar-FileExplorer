@@ -33,25 +33,26 @@ const useTraverseTree = () => {
   }
 
   function deleteNode(tree, folderId) {
-    if(tree.id === folderId){
+    if (tree.id === folderId) {
       delete tree.name;
       delete tree.items;
       delete tree.isFolder;
+      tree.items = [];
       return tree;
     }
-
 
     let latestNode = [];
     let filteredNodes = tree.items.filter((ob) => ob.id !== folderId);
     latestNode = filteredNodes.map(ob => deleteNode(ob, folderId));
 
+
     return { ...tree, items: latestNode };
   }
-  function pushDeletedNodes (nodeId){
+  function pushDeletedNodes(nodeId) {
     deletedNodes.push(nodeId);
   }
 
-  return { insertNode, updateNode, pushDeletedNodes,  deleteNode };
+  return { insertNode, updateNode, pushDeletedNodes, deleteNode };
 };
 
 export default useTraverseTree;
