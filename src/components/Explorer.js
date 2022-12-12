@@ -42,7 +42,7 @@ function Explorer({
     }
   };
 
-  const deleteFileFolderHandler = (e) => {
+  const deleteFileFolderHandler = () => {
     deleteNodeHandler(docs.id);
   };
 
